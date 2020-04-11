@@ -1,0 +1,14 @@
+html {
+  min-height: 100%;
+}
+
+html,
+body {
+  display: flex;
+  flex-direction: column;
+  display: f;
+}
+
+body, #app {
+  flex: 1;
+}
