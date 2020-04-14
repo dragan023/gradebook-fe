@@ -1,9 +1,16 @@
 <template>
   <b-navbar toggleable="lg" type="dark" variant="dark">
-    <b-navbar-brand href="#">
+    <b-navbar-brand to="/">
       <b-icon class="h2" icon="book-half" variant="warning"></b-icon>
-      <span>Gradebook</span>
+      <span>My Gradebook</span>
     </b-navbar-brand>
+    <b-navbar-nav v-if="isLoggedIn" class="l-nav-center">
+      <b-nav-item to="/">Gradebooks</b-nav-item>
+      <b-nav-item to="teachers">All professors</b-nav-item>
+      <b-nav-item to="my-gradebook">My Gradebook</b-nav-item>
+      <b-nav-item to="gradebooks/create">Add Gradebook</b-nav-item>
+      <b-nav-item to="professors/create">Add Professor</b-nav-item>
+    </b-navbar-nav>
 
     <b-navbar-nav class="ml-auto">
       <b-nav-item v-if="!isLoggedIn" to="login">Login</b-nav-item>
@@ -18,9 +25,6 @@ import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'Navbar',
-  created() {
-    console.log(this.$store.state)
-  },
   methods: {
     ...mapActions(['logout'])
   },
@@ -39,5 +43,9 @@ export default {
   > svg {
     margin-right: 1rem;
   }
+}
+
+.l-nav-center {
+  margin: 0 auto;
 }
 </style>

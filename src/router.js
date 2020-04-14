@@ -3,13 +3,17 @@ import VueRouter from 'vue-router';
 import Login from './components/AppLogin';
 import Register from './components/AppRegister';
 import Gradebooks from './components/AppGradebooks';
+import Gradebook from './components/AppGradebook';
+import Teacher from './components/AppTeacher';
 
 Vue.use(VueRouter);
 
 export const routes = [
   { path: '/', component: Gradebooks, name: 'home' },
   { path: '/login', component: Login, name: 'login' },
-  { path: '/register', component: Register, name: 'register' }
+  { path: '/register', component: Register, name: 'register' },
+  { path: '/gradebooks/:id', component: Gradebook, name: 'gradebook' },
+  { path: '/teachers/:id', component: Teacher, name: 'teacher' }
 ];
 
 export const router = new VueRouter({
