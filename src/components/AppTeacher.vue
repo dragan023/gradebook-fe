@@ -1,16 +1,22 @@
 <template>
-  <b-card
-    v-if="teacher"
-    :title="teacher.first_name"
-    img-src="https://picsum.photos/600/300/?image=25"
-    img-alt="gradebook"
-    img-top
-    tag="article"
-    style="max-width: 20rem;"
-    class="mb-2"
-  >
-    <b-button href="#" variant="primary">Go somewhere</b-button>
-  </b-card>
+  <b-container class="bv-example-row pt-5">
+    <b-row>
+      <b-jumbotron v-if="teacher">
+        <template v-slot:header
+          >{{ teacher.first_name }} {{ teacher.last_name }}</template
+        >
+        <hr class="my-4" />
+        <p>Gradebook:</p>
+        <p>
+          Name: <router-link :to="`/gradebooks/${teacher.gradebook.id}`" v-if="teacher.gradebook">{{ teacher.gradebook.name }}</router-link>
+        </p>
+        <p>
+          Number of students:
+          <span v-if="teacher.gradebook">{{ teacher.gradebook.students.length }}</span>
+        </p>
+      </b-jumbotron>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
@@ -19,14 +25,14 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'Gradebook',
   computed: {
-    ...mapGetters(['teacher'])
+    ...mapGetters(['teacher']),
   },
   methods: {
-    ...mapActions(['getSingleTeacher'])
+    ...mapActions(['getSingleTeacher', 'getGradebook']),
   },
   created() {
     this.getSingleTeacher(this.$route.params.id);
-  }
+  },
 };
 </script>
 

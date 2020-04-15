@@ -6,10 +6,10 @@
     </b-navbar-brand>
     <b-navbar-nav v-if="isLoggedIn" class="l-nav-center">
       <b-nav-item to="/">Gradebooks</b-nav-item>
-      <b-nav-item to="teachers">All professors</b-nav-item>
-      <b-nav-item to="my-gradebook">My Gradebook</b-nav-item>
-      <b-nav-item to="gradebooks/create">Add Gradebook</b-nav-item>
-      <b-nav-item to="professors/create">Add Professor</b-nav-item>
+      <b-nav-item to="/teachers">All professors</b-nav-item>
+      <b-nav-item to="/my-gradebook">My Gradebook</b-nav-item>
+      <b-nav-item to="/gradebooks/create">Add Gradebook</b-nav-item>
+      <b-nav-item to="/professors/create">Add Professor</b-nav-item>
     </b-navbar-nav>
 
     <b-navbar-nav class="ml-auto">

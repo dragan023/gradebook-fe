@@ -5,6 +5,11 @@ class TeacherService {
         const response = await baseService.get(`/users/${id}`);
         return response.data;
     }
+
+    async getTeachers(){
+        const response = await baseService.get(`/users`);
+        return response.data;
+    }
 }
 
 const teacherService = new TeacherService();

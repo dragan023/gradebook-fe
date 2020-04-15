@@ -11,16 +11,27 @@ export default new Vuex.Store({
     gradebooks: [],
     professors: [],
     gradebook: {},
-    teacher: {}
+    teacher: {},
+    allTeachers: [],
   },
   getters: {
-    isLoggedIn: state => {
+    isLoggedIn: (state) => {
       return state.isLoggedIn;
     },
-    gradebooks: state => state.gradebooks,
-    gradebook: state => state.gradebook,
-    teacher: state => state.teacher
+    gradebooks: (state) => state.gradebooks,
+    gradebook: (state) => state.gradebook,
+    teacher: (state) => state.teacher,
+    allTeachers: (state) => state.allTeachers,
+    availableTeachers: (state) =>
+      state.allTeachers
+        .filter((teacher) => !teacher.gradebook)
+        .map((item) => {
+          let teacher = {};
+          teacher.value = item.id;
+          teacher.text = item.first_name;
+          return teacher;
+        }),
   },
   mutations,
-  actions
+  actions,
 });

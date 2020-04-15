@@ -37,5 +37,17 @@ export default {
     const teacher = await teacherService.getSingleTeacher(teacherId);
 
     commit('setTeacher', teacher);
+  },
+
+  async getTeachers({ commit }) {
+    const teachers = await teacherService.getTeachers();
+
+    commit('setTeachers', teachers);
+  },
+
+  async createGradebook({ commit }, gradebook) {
+    const createdGradebook = await gradebookService.createGradebook(gradebook);
+
+    commit('setGradebook', createdGradebook);
   }
 };

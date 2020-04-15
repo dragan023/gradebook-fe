@@ -27,7 +27,7 @@
         <td v-else>This gradebook doesnt have classmaster.</td>
 
         <td>
-          {{ gradebook.created_at }}
+          {{ getDate(gradebook.created_at) }}
         </td>
       </tr>
     </tbody>
@@ -37,9 +37,11 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import dateMixin from '../mixins/dateMixin';
 
 export default {
   name: 'Gradebooks',
+  mixins: [dateMixin],
   computed: {
     ...mapGetters(['gradebooks']),
   },

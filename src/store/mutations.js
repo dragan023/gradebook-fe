@@ -17,5 +17,9 @@ export default {
 
   setTeacher(state, teacher) {
     state.teacher = teacher;
+  },
+
+  setTeachers(state, teachers) {
+    state.allTeachers = teachers;
   }
 };
