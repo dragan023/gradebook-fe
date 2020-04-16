@@ -13,13 +13,14 @@ export default new Vuex.Store({
     gradebook: {},
     teacher: {},
     allTeachers: [],
+    currentUser: {},
   },
   getters: {
     isLoggedIn: (state) => {
       return state.isLoggedIn;
     },
     gradebooks: (state) => state.gradebooks,
-    gradebook: (state) => state.gradebook,
+    getGradebook: (state) => state.gradebook,
     teacher: (state) => state.teacher,
     allTeachers: (state) => state.allTeachers,
     availableTeachers: (state) =>
@@ -31,6 +32,9 @@ export default new Vuex.Store({
           teacher.text = item.first_name;
           return teacher;
         }),
+    getCurrentUser: (state) => state.currentUser,
+    checkIfMyGradebook: state => state.gradebook.user_id == state.currentUser.id,
+    gradebookHasStudents: state => state.gradebook.students && !state.gradebook.students.length
   },
   mutations,
   actions,

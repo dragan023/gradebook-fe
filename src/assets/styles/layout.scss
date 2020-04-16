@@ -11,3 +11,14 @@
   flex-grow: 1;
   justify-content: center;
 }
+
+.l-mygradebook {
+  display: flex;
+  flex: 1;
+  padding: 16px;
+}
+
+.l-mygradebook-col {
+  flex: 1 1 0;
+  padding: 8px;
+}

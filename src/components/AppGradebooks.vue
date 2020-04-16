@@ -10,16 +10,17 @@
     <tbody>
       <tr v-for="gradebook in gradebooks" :key="gradebook.id">
         <td>
-          <router-link :to="`gradebooks/${gradebook.id}`">{{
-            gradebook.name
-          }}</router-link>
+          <router-link :to="`gradebooks/${gradebook.id}`"
+            >{{ gradebook.name }}
+            <span v-if="gradebook.user_id == getCurrentUser.id">(Mine)</span>
+          </router-link>
         </td>
 
-        <td v-if="gradebook.class_master">
-          <router-link :to="`teachers/${gradebook.class_master.id}`">
+        <td v-if="gradebook.user">
+          <router-link :to="`teachers/${gradebook.user.id}`">
             <span>
-              {{ gradebook.class_master.first_name }} &nbsp;
-              {{ gradebook.class_master.last_name }}
+              {{ gradebook.user.first_name }} &nbsp;
+              {{ gradebook.user.last_name }}
             </span>
           </router-link>
         </td>
@@ -43,13 +44,14 @@ export default {
   name: 'Gradebooks',
   mixins: [dateMixin],
   computed: {
-    ...mapGetters(['gradebooks']),
+    ...mapGetters(['gradebooks', 'getCurrentUser']),
   },
   methods: {
-    ...mapActions(['getGradebooks']),
+    ...mapActions(['getGradebooks', 'fetchCurrentUser']),
   },
   created() {
     this.getGradebooks();
+    this.fetchCurrentUser();
   },
 };
 </script>

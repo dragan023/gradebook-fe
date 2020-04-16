@@ -27,7 +27,7 @@ export default {
     commit('setGradebooks', gradebooks);
   },
 
-  async getSingleGradebook({ commit }, gradebookId) {
+  async fetchSingleGradebook({ commit }, gradebookId) {
     const gradebook = await gradebookService.getSingleGradebook(gradebookId);
 
     commit('setGradebook', gradebook);
@@ -35,7 +35,6 @@ export default {
 
   async getSingleTeacher({ commit }, teacherId) {
     const teacher = await teacherService.getSingleTeacher(teacherId);
-
     commit('setTeacher', teacher);
   },
 
@@ -49,5 +48,11 @@ export default {
     const createdGradebook = await gradebookService.createGradebook(gradebook);
 
     commit('setGradebook', createdGradebook);
+  },
+
+  async fetchCurrentUser({ commit }) {
+    const currentUser = await authService.getCurrentUser();
+
+    commit('setCurrentUser', currentUser.data.user);
   }
 };

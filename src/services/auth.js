@@ -28,6 +28,12 @@ export default class AuthService {
     })
   }
 
+  async getCurrentUser() {
+    const response = await baseService.get('/user')
+
+    return response;
+  }
+
   setDefaultHeaders(token) {
     if (!token) {
       return;

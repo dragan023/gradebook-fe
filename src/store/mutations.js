@@ -21,5 +21,9 @@ export default {
 
   setTeachers(state, teachers) {
     state.allTeachers = teachers;
+  },
+
+  setCurrentUser(state, currentUser) {
+    state.currentUser = currentUser;
   }
 };
