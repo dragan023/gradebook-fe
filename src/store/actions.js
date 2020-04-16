@@ -79,4 +79,10 @@ export default {
 
     commit('setCurrentUser', createdStudent);
   },
+
+  async createComment({ commit }, comment) {
+    const createdComment = await gradebookService.createComment(comment);
+
+    commit('setComment', createdComment);
+  },
 };

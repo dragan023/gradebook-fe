@@ -33,5 +33,9 @@ export default {
 
   storeErrors(state, errors) {
     state.errors = errors;
+  },
+
+  setComment(state, comment) {
+    state.comment = comment;
   }
 };

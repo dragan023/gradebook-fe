@@ -21,7 +21,7 @@ export default new Vuex.Store({
       return state.isLoggedIn;
     },
     gradebooks: (state) => state.gradebooks,
-    getGradebook: (state) => state.gradebook,
+    getGradebook: (state) => state.gradebook && state.gradebook,
     teacher: (state) => state.teacher,
     allTeachers: (state) => state.allTeachers,
     availableTeachers: (state) =>

@@ -26,8 +26,6 @@
         ></b-form-select>
       </b-form-group>
 
-      {{ gradebook }}
-
       <b-button type="submit" variant="dark">Submit</b-button>
     </b-form>
   </div>

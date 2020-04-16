@@ -1,7 +1,7 @@
 <template>
-  <div v-if="this.notTeacher">
+  <div class="mt-3" v-if="this.notTeacher">
     You currently dont have any Gradebooks.
-    <b-button to="/gradebooks/create" type="submit" variant="dark"
+    <b-button class="ml-4" to="/gradebooks/create" type="submit" variant="dark"
       >Add Gradebook</b-button
     >
   </div>
@@ -47,6 +47,34 @@
           >Delete Gradebook</b-button
         >
       </b-jumbotron>
+      <h5>Comments</h5>
+      <b-list-group>
+        <b-list-group-item
+          v-for="comment in getGradebook.comments"
+          :key="comment.id"
+        >
+          <b-avatar
+            href="#foobar"
+            variant="info"
+            src="https://placekitten.com/300/300"
+          ></b-avatar
+          ><span class="ml-2">{{ comment.author }}</span>
+          <hr />
+          <p>{{ comment.content }}</p>
+        </b-list-group-item>
+      </b-list-group>
+
+      <h5 class="mt-4">Leave a comment:</h5>
+      <b-form @submit.stop.prevent="handleSubmitComment">
+        <b-form-textarea
+          id="textarea"
+          v-model="comment.content"
+          placeholder="Enter something..."
+          rows="3"
+          max-rows="6"
+        ></b-form-textarea>
+        <b-button class="mt-3" type="submit" variant="dark">Submit</b-button>
+      </b-form>
     </div>
     <b-modal id="modal-1" title="Are you sure?" @ok="handleDelete()"> </b-modal>
   </div>
@@ -61,19 +89,26 @@ export default {
   data() {
     return {
       notTeacher: false,
+      comment: {},
     };
   },
   beforeRouteEnter(to, from, next) {
     store.dispatch('fetchCurrentUser').then(() => {
       if (to.params.id > 0) {
         store.dispatch('fetchSingleGradebook', to.params.id);
-        next();
+        next((vm) => {
+          vm.comment.author = store.getters.getCurrentUser.first_name;
+          vm.comment.gradebook_id = store.getters.getGradebook.id;
+        });
       } else if (store.getters.getCurrentUser.gradebook) {
         store.dispatch(
           'fetchSingleGradebook',
           store.getters.getCurrentUser.gradebook.id
         );
-        next();
+        next((vm) => {
+          vm.comment.author = store.getters.getCurrentUser.first_name;
+          vm.comment.gradebook_id = store.getters.getGradebook.id;
+        });
       } else {
         next((vm) => {
           vm.notTeacher = true;
@@ -83,13 +118,21 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchCurrentUser',
+      'c',
       'fetchSingleGradebook',
       'deleteGradebook',
+      'createComment',
+      'getGradebooks',
     ]),
     async handleDelete() {
       await this.deleteGradebook(this.getCurrentUser.gradebook.id);
       this.$router.push('/');
+    },
+    handleSubmitComment() {
+      this.createComment(this.comment).then(() => {
+        this.fetchSingleGradebook(this.getCurrentUser.gradebook.id);
+        this.comment = {};
+      });
     },
   },
   computed: {
@@ -106,9 +149,6 @@ export default {
       return this.getGradebook.user
         ? `${this.getGradebook.user.first_name} ${this.getGradebook.user.last_name}`
         : '';
-    },
-    gradebookStudens() {
-      return this.getGradebook.students;
     },
   },
 };
