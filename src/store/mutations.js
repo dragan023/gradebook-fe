@@ -25,5 +25,9 @@ export default {
 
   setCurrentUser(state, currentUser) {
     state.currentUser = currentUser;
+  },
+
+  setDeletedGradebook(state, deletedGradebook) {
+    state.deletedGradebook = deletedGradebook;
   }
 };

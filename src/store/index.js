@@ -34,7 +34,8 @@ export default new Vuex.Store({
         }),
     getCurrentUser: (state) => state.currentUser,
     checkIfMyGradebook: state => state.gradebook.user_id == state.currentUser.id,
-    gradebookHasStudents: state => state.gradebook.students && !state.gradebook.students.length
+    gradebookHasStudents: state => state.gradebook.students && !state.gradebook.students.length.gradebook,
+    checkIfUserIsTeacher: state => state.currentUser.gradebook && state.currentUser.gradebook
   },
   mutations,
   actions,

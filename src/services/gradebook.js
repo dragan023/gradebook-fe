@@ -15,6 +15,11 @@ class GradebookService {
         const response = await baseService.post('/gradebooks', gradebook);
         return response.data;
     }
+
+    async deleteGradebook(gradebookId){
+        const response = await baseService.delete(`/gradebooks/${gradebookId}`);
+        return response.data;
+    }
 }
 
 const gradebookService = new GradebookService();

@@ -1,7 +1,9 @@
 <template>
   <div v-if="this.notTeacher">
     You currently dont have any Gradebooks.
-    <b-button type="submit" variant="dark">Get Gradebook</b-button>
+    <b-button to="/gradebooks/create" type="submit" variant="dark"
+      >Add Gradebook</b-button
+    >
   </div>
   <div class="l-mygradebook" v-else>
     <div class="l-mygradebook-col">
@@ -37,8 +39,16 @@
             {{ getTeacherFullname }}
           </router-link>
         </h5>
+        <b-button
+          v-b-modal.modal-1
+          v-if="checkIfMyGradebook"
+          type="submit"
+          variant="danger"
+          >Delete Gradebook</b-button
+        >
       </b-jumbotron>
     </div>
+    <b-modal id="modal-1" title="Are you sure?" @ok="handleDelete()"> </b-modal>
   </div>
 </template>
 
@@ -72,7 +82,15 @@ export default {
     });
   },
   methods: {
-    ...mapActions(['fetchCurrentUser', 'fetchSingleGradebook']),
+    ...mapActions([
+      'fetchCurrentUser',
+      'fetchSingleGradebook',
+      'deleteGradebook',
+    ]),
+    async handleDelete() {
+      await this.deleteGradebook(this.getCurrentUser.gradebook.id);
+      this.$router.push('/');
+    },
   },
   computed: {
     ...mapGetters([
@@ -95,3 +113,14 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.modal-body {
+  padding: 0;
+}
+
+.modal-footer,
+.modal-header {
+  border: none;
+}
+</style>

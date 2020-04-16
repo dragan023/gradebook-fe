@@ -7,6 +7,7 @@ import Teacher from './components/AppTeacher';
 import TeacherList from './components/AppTeacherList';
 import CreateGradebook from './components/AppCreateGradebook';
 import MyGradebook from './components/AppMyGradebook';
+import CreateStudent from './components/AppCreateStudent';
 
 Vue.use(VueRouter);
 
@@ -19,6 +20,7 @@ export const routes = [
   { path: '/teachers', component: TeacherList, name: 'teachers-list' },
   { path: '/teachers/:id', component: Teacher, name: 'teacher' },
   { path: '/my-gradebook', component: MyGradebook, name: 'my-gradebook' },
+  { path: '/gradebooks/:id/create', component: CreateStudent, name: 'create-student' },
 ];
 
 export const router = new VueRouter({

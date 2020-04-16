@@ -1,6 +1,7 @@
 import { authService } from '../services/auth';
 import gradebookService from '../services/gradebook';
 import teacherService from '../services/teacher';
+import studentService from '../services/student';
 import { router } from '../router';
 
 export default {
@@ -50,9 +51,20 @@ export default {
     commit('setGradebook', createdGradebook);
   },
 
+  async deleteGradebook({ commit }, gradebookId) {
+    const deletedGradebook = await gradebookService.deleteGradebook(gradebookId);
+    commit('setDeletedGradebook', deletedGradebook);
+  },
+
   async fetchCurrentUser({ commit }) {
     const currentUser = await authService.getCurrentUser();
 
     commit('setCurrentUser', currentUser.data.user);
-  }
+  },
+
+  async createStudent({ commit }, student) {
+    const createdStudent = await studentService.createStudent(student);
+
+    commit('setCurrentUser', createdStudent);
+  },
 };
