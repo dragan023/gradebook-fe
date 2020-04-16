@@ -29,5 +29,9 @@ export default {
 
   setDeletedGradebook(state, deletedGradebook) {
     state.deletedGradebook = deletedGradebook;
+  },
+
+  storeErrors(state, errors) {
+    state.errors = errors;
   }
 };

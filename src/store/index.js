@@ -14,6 +14,7 @@ export default new Vuex.Store({
     teacher: {},
     allTeachers: [],
     currentUser: {},
+    errors: {}
   },
   getters: {
     isLoggedIn: (state) => {
@@ -35,7 +36,8 @@ export default new Vuex.Store({
     getCurrentUser: (state) => state.currentUser,
     checkIfMyGradebook: state => state.gradebook.user_id == state.currentUser.id,
     gradebookHasStudents: state => state.gradebook.students && !state.gradebook.students.length.gradebook,
-    checkIfUserIsTeacher: state => state.currentUser.gradebook && state.currentUser.gradebook
+    checkIfUserIsTeacher: state => state.currentUser.gradebook && state.currentUser.gradebook,
+    getErrors: state => state.errors && state.errors
   },
   mutations,
   actions,

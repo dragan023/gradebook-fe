@@ -6,15 +6,23 @@ import { router } from '../router';
 
 export default {
   async registerUser({ commit }, user) {
-    await authService.registerUser(user);
-    commit('login');
-    router.push('/');
+    try {
+      await authService.registerUser(user);
+      commit('login');
+      router.push('/');
+    } catch (error) {
+      commit('storeErrors', error.response.data);
+    }
   },
 
   async login({ commit }, user) {
-    await authService.login(user);
-    commit('login');
-    router.push('/');
+    try {
+      await authService.login(user);
+      commit('login');
+      router.push('/');
+    } catch (error) {
+      commit('storeErrors', error.response.data);
+    }
   },
 
   async logout({ commit }) {
@@ -36,6 +44,7 @@ export default {
 
   async getSingleTeacher({ commit }, teacherId) {
     const teacher = await teacherService.getSingleTeacher(teacherId);
+
     commit('setTeacher', teacher);
   },
 
@@ -52,7 +61,10 @@ export default {
   },
 
   async deleteGradebook({ commit }, gradebookId) {
-    const deletedGradebook = await gradebookService.deleteGradebook(gradebookId);
+    const deletedGradebook = await gradebookService.deleteGradebook(
+      gradebookId
+    );
+
     commit('setDeletedGradebook', deletedGradebook);
   },
 

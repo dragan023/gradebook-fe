@@ -9,6 +9,11 @@
           required
           placeholder="Enter your first name"
         ></b-form-input>
+        <div class="text-danger" v-if="getErrors">
+          <p class="m-0" v-for="error in getErrors.first_name" :key="error">
+            {{ error }}
+          </p>
+        </div>
       </b-form-group>
 
       <b-form-group label="Last name" label-for="last_name">
@@ -19,6 +24,11 @@
           required
           placeholder="Enter your last name"
         ></b-form-input>
+        <div class="text-danger" v-if="getErrors">
+          <p class="m-0" v-for="error in getErrors.last_name" :key="error">
+            {{ error }}
+          </p>
+        </div>
       </b-form-group>
 
       <b-form-group
@@ -33,6 +43,12 @@
           required
           placeholder="Enter email"
         ></b-form-input>
+
+        <div class="text-danger" v-if="getErrors">
+          <p class="m-0" v-for="error in getErrors.email" :key="error">
+            {{ error }}
+          </p>
+        </div>
       </b-form-group>
 
       <b-form-group
@@ -47,6 +63,11 @@
           required
           placeholder="Enter password"
         ></b-form-input>
+        <div class="text-danger" v-if="getErrors">
+          <p class="m-0" v-for="error in getErrors.password" :key="error">
+            {{ error }}
+          </p>
+        </div>
       </b-form-group>
 
       <b-form-group label="Confirm password:" label-for="password_confirmation">
@@ -58,24 +79,45 @@
           placeholder="Enter password"
         ></b-form-input>
       </b-form-group>
+
+      <b-form-group label="Terms and contitions:" label-for="terms_conditions">
+        <b-form-checkbox
+          required=""
+          id="terms_conditions"
+          v-model="user.terms"
+          name="checkbox-1"
+        >
+          I accept the terms and use
+        </b-form-checkbox>
+      </b-form-group>
       <b-button type="submit" variant="dark">Submit</b-button>
     </b-form>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'AppRegister',
   data() {
     return {
-      user: {}
+      user: {},
     };
   },
   methods: {
-    ...mapActions(['registerUser'])
-  }
+    ...mapActions(['registerUser']),
+    handleSubmit() {
+      if (!this.user.terms) {
+        this.termsErros = true;
+      } else {
+        this.termsErros = false;
+        this.registerUser();
+      }
+    },
+  },
+  computed: {
+    ...mapGetters(['getErrors']),
+  },
 };
 </script>
-
